@@ -35,6 +35,24 @@
             font-family: 'Brush Script MT', cursive;
         }
 
+        /* --- Heart Animation --- */
+        .heart {
+            position: absolute;
+            top: -20px;
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Bouquet Logic --- */
         .bouquet-container {
             position: relative;
             width: 300px;
@@ -45,11 +63,10 @@
             transform: translateY(100%); 
             transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
             padding-bottom: 20px;
+            z-index: 10;
         }
 
-        .bouquet-container.rise {
-            transform: translateY(10%);
-        }
+        .bouquet-container.rise { transform: translateY(10%); }
 
         .flower-stem-group {
             position: relative;
@@ -66,7 +83,6 @@
             transform-origin: bottom center;
         }
 
-        /* --- Updated Flower Head Logic --- */
         .flower-head {
             position: absolute;
             top: 0;
@@ -76,15 +92,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Shift up so it sits ON the stem and start invisible */
             transform: translate(-50%, -100%) scale(0);
             transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 10;
         }
 
-        .flower-head.bloom {
-            transform: translate(-50%, -100%) scale(1);
-        }
+        .flower-head.bloom { transform: translate(-50%, -100%) scale(1); }
 
         .flower-center {
             position: absolute;
@@ -92,7 +104,7 @@
             height: 25px;
             background: radial-gradient(circle, #ffe66d, #ff9e00);
             border-radius: 50%;
-            z-index: 50; /* Above all petals */
+            z-index: 50;
             box-shadow: inset 0 -2px 5px rgba(0,0,0,0.3);
         }
 
@@ -102,15 +114,13 @@
             height: 55px;
             background: radial-gradient(circle at 30% 70%, #ff758c, #c9184a);
             border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
-            /* Rotate around the absolute center of the head */
             bottom: 50%;
             left: 50%;
             transform-origin: bottom center;
-            margin-left: -19px; /* Center alignment fix */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-left: -19px;
         }
 
-        /* Rotations for full bloom */
+        /* Petal Positions */
         .p1 { transform: rotate(0deg) translateY(-5px); }
         .p2 { transform: rotate(45deg) translateY(-5px); }
         .p3 { transform: rotate(90deg) translateY(-5px); }
@@ -120,7 +130,6 @@
         .p7 { transform: rotate(270deg) translateY(-5px); }
         .p8 { transform: rotate(315deg) translateY(-5px); }
 
-        /* --- Bouquet Details --- */
         .ribbon {
             position: absolute;
             bottom: 60px;
@@ -131,15 +140,6 @@
             background: #d6336c;
             z-index: 5;
             border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .leaf {
-            position: absolute;
-            width: 30px;
-            height: 50px;
-            background: linear-gradient(135deg, #69c472, #4a7c52);
-            border-radius: 0 70% 0 70%;
         }
 
         /* --- Tag/Card --- */
@@ -153,9 +153,7 @@
             transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .gift-tag-container.show-tag {
-             transform: rotate(-5deg) scale(1);
-        }
+        .gift-tag-container.show-tag { transform: rotate(-5deg) scale(1); }
 
         .string {
             position: absolute;
@@ -174,56 +172,36 @@
             border: 1px solid #eee;
         }
 
-        .card h1 {
-            color: #a61e4d;
-            margin: 0;
-            font-family: 'Brush Script MT', cursive;
-            font-size: 2.5rem;
-        }
-
-        .card p {
-            color: #d6336c;
-            font-size: 1rem;
-            margin: 0;
-            font-weight: bold;
-        }
+        .card h1 { color: #a61e4d; margin: 0; font-family: 'Brush Script MT', cursive; font-size: 2.5rem; }
+        .card p { color: #d6336c; font-size: 1rem; margin: 0; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <button id="start-btn">Click for a Gift 💌</button>
+    <button id="start-btn">Click for Naomi 💌</button>
 
     <div class="bouquet-container">
         <div class="flower-stem-group">
             <div class="ribbon"></div>
-
             <div class="stem" style="height: 260px; transform: rotate(-15deg);">
                 <div class="flower-head">
                     <div class="flower-center"></div>
-                    <div class="petal p1"></div><div class="petal p2"></div>
-                    <div class="petal p3"></div><div class="petal p4"></div>
-                    <div class="petal p5"></div><div class="petal p6"></div>
-                    <div class="petal p7"></div><div class="petal p8"></div>
+                    <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div>
                 </div>
             </div>
-
             <div class="stem" style="height: 330px; z-index: 2;">
                 <div class="flower-head">
                     <div class="flower-center"></div>
-                    <div class="petal p1"></div><div class="petal p2"></div>
-                    <div class="petal p3"></div><div class="petal p4"></div>
-                    <div class="petal p5"></div><div class="petal p6"></div>
-                    <div class="petal p7"></div><div class="petal p8"></div>
+                    <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div>
                 </div>
             </div>
-
             <div class="stem" style="height: 280px; transform: rotate(15deg);">
                 <div class="flower-head">
                     <div class="flower-center"></div>
-                    <div class="petal p1"></div><div class="petal p2"></div>
-                    <div class="petal p3"></div><div class="petal p4"></div>
-                    <div class="petal p5"></div><div class="petal p6"></div>
-                    <div class="petal p7"></div><div class="petal p8"></div>
+                    <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div>
                 </div>
             </div>
         </div>
@@ -243,9 +221,28 @@
         const heads = document.querySelectorAll('.flower-head');
         const tag = document.querySelector('.gift-tag-container');
 
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
         btn.addEventListener('click', () => {
             btn.style.display = 'none';
             bouquet.classList.add('rise');
+
+            // Start falling hearts
+            setInterval(createHeart, 300);
 
             setTimeout(() => {
                 heads.forEach(h => h.classList.add('bloom'));
@@ -253,7 +250,7 @@
 
             setTimeout(() => {
                 tag.classList.add('show-tag');
-            }, 2000);
+            }, 2200);
         });
     </script>
 </body>
